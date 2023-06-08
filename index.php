@@ -31,6 +31,21 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
             <button type="submit" class="btn btn-primary">Genera password</button>
         </form>
 
-    
+    <?php
+    function generatePassword($length) {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?';
+        $password = '';
+        
+        
+        for ($i = 0; $i < $length; $i++) {
+            $index = rand(0, strlen($chars) - 1);
+            $password .= $chars[$index];
+        }
+        
+        return $password;
+    }
+    ?>
+
+
 </body>
 </html>
