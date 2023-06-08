@@ -12,6 +12,7 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,21 +21,68 @@ Dare all’utente anche la possibilità di permettere o meno la ripetizione di c
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
     <title>generatore di password</title>
 </head>
+
 <body>
-<div class="container">
-        <h1>Generatore di password sicure</h1>
-        <form action="index.php" method="GET">
-            <div class="form-group">
-                <label for="length">Lunghezza password:</label>
-                <input type="number" id="length" name="length" class="form-control" min="1" max="100" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Genera password</button>
-        </form>
 
-    <?php
-    include 'functions.php';
-    ?>
+    <body>
+        <div class="container" ">
+        <h1 class=" text-center" style="color:#85878B">Strong Password Generator</h1>
+            <h2 class="text-center">Genera una password sicura</h2>
 
+            <form action="index.php" method="GET">
+                <div class="form-group d-flex">
+                    <label for="length"> lunghezza password:</label>
+                    <input type="number" id="length" name="length" class="form-control" min="1" max="100" required>
+                </div>
+                <div class="form-group d-flex justify-content-between my-2">
+                    <label for="characters">Caratteri:</label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="characters[]" value="letters" id="letters">
+                            <label class="form-check-label" for="letters">
+                                Lettere (minuscole e maiuscole)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="characters[]" value="numbers" id="numbers">
+                            <label class="form-check-label" for="numbers">
+                                Numeri
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="characters[]" value="symbols" id="symbols">
+                            <label class="form-check-label" for="symbols">
+                                Simboli
+                            </label>
+                        </div>
 
-</body>
+                    </div>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                    <label for="repetition">Ripetizione caratteri:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="repetition" id="repetition" value="true">
+                        <label class="form-check-label" for="repetition" style="padding-right: 5.5rem;">
+                            Consenti ripetizione
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Genera password</button>
+            </form>
+
+            <?php
+            include 'functions.php';
+            if (isset($_GET['length'])) {
+                $passwordLength = $_GET['length'];
+                $characters = $_GET['characters'];
+                $allowRepetition = isset($_GET['repetition']) ? true : false;
+                $password = generatePassword($passwordLength, $characters, $allowRepetition);
+                echo "<h2>La tua password generata:</h2>";
+                echo "<textarea>$password</textarea>";
+            }
+            ?>
+
+        </div>
+    </body>
+
 </html>
